@@ -1,0 +1,100 @@
+#:schema https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+
+version = 2
+final_space = true
+console_title_template = '{{ .Shell }} in {{ .Folder }}'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type = 'path'
+    style = 'plain'
+    background = 'transparent'
+    foreground = 'blue'
+    template = '{{ .Path }}'
+
+    [blocks.segments.properties]
+      style = 'full'
+
+  [[blocks.segments]]
+    type = 'git'
+    style = 'plain'
+    foreground = 'p:grey'
+    background = 'transparent'
+    template = ' {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} <cyan>{{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
+
+    [blocks.segments.properties]
+      branch_icon = ''
+      commit_icon = '@'
+      fetch_status = true
+
+[[blocks]]
+  type = 'rprompt'
+  overflow = 'hidden'
+
+  [[blocks.segments]]
+    type = 'executiontime'
+    style = 'plain'
+    foreground = 'yellow'
+    background = 'transparent'
+    template = '{{ .FormattedMs }}'
+
+    [blocks.segments.properties]
+      threshold = 5000
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+  [[blocks.segments]] # Python
+    foreground = "#9794f2"
+    type = "python"
+    style = "plain"
+    template = "[\ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }}]"
+  [[blocks.segments]] # Dotnet
+    type = "dotnet"
+    style = "plain"
+    template = "[\ue77f {{ if .Unsupported }}\uf071{{ else }}{{ .Full }}{{ end }}]"
+  [[blocks.segments]] # Go
+    type = "go"
+    style = "plain"
+    template = "[\ue626 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}]"
+  [[blocks.segments]] # Rust
+    type = "rust"
+    style = "plain"
+    template = "[\ue7a8 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}]"
+  [[blocks.segments]] # CMake
+    type = "cmake"
+    style = "plain"
+    template = " [ make {{ .Major }}.{{ .Minor }}]"
+
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type = 'text'
+    style = 'plain'
+    foreground_templates = [
+      "{{if gt .Code 0}}red{{end}}",
+      "{{if eq .Code 0}}#48628c{{end}}",
+    ]
+    background = 'transparent'
+    template = '❯'
+
+[transient_prompt]
+  foreground_templates = [
+    "{{if gt .Code 0}}red{{end}}",
+    "{{if eq .Code 0}}#48628c{{end}}",
+  ]
+  background = 'transparent'
+  template = '| '
+
+[secondary_prompt]
+  foreground = '#48628c'
+  background = 'transparent'
+  template = '❯❯ '

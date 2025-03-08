@@ -1,0 +1,210 @@
+#:schema https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+
+version = 2
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  [[blocks.segments]]
+    leading_diamond = "\u256d\u2500\ue0b6"
+    background = "#0077c2"
+    foreground = "#ffffff"
+    style = "diamond"
+    template = "\uf07b\uea9c {{ .Path }} "
+    type = "path"
+    [blocks.segments.properties]
+      folder_icon = " \uf07b "
+      home_icon = "\ue617"
+#     home_icon = "~"
+      style = "folder"
+  [[blocks.segments]]
+    background = "#FFFB38"
+    background_templates = [
+      "{{ if or (.Working.Changed) (.Staging.Changed) }}#ffeb95{{ end }}",
+      "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#c5e478{{ end }}",
+      "{{ if gt .Ahead 0 }}#C792EA{{ end }}",
+      "{{ if gt .Behind 0 }}#C792EA{{ end }}",
+    ]
+    foreground = "#011627"
+    powerline_symbol = "\ue0b0"
+    style = "powerline"
+    template = " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}<#ef5350> \uf046 {{ .Staging.String }}</>{{ end }} "
+    type = "git"
+    [blocks.segments.properties]
+      branch_icon = "\ue725 "
+      fetch_status = true
+      fetch_upstream_icon = true
+  [[blocks.segments]]
+    background = "#83769c"
+    foreground = "#ffffff"
+    style = "powerline"
+    template = " \ueba2 {{ .FormattedMs }}\u2800"
+    powerline_symbol = "\ue0b0"
+    type = "executiontime"
+    [blocks.segments.properties]
+      style = "roundrock"
+      threshold = 0
+  [[blocks.segments]]
+    type = "status"
+    style = "diamond"
+    background = "#00897b"
+    foreground = "#ffffff"
+    background_templates = [ "{{ if .Error }}#e91e63{{ end }}" ]
+    trailing_diamond = "\ue0b4"
+    template = " \u23F2 {{ .Code }}\u2800"
+    [blocks.segments.properties]
+      style = "roundrock"
+      threshold = 0
+      always_enabled = true
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+  
+  # Tools:
+  # - Node
+  # - Python 
+  # - Java
+  # - Dotnet
+  # - Go
+  # - Rust
+  # - Julia
+  # - Ruby
+  # - CMake
+  [[blocks.segments]] # Node.js
+    background = "#303030"
+    foreground = "#3C873A"
+    leading_diamond = "\ue0b6"
+    [blocks.segments.properties]
+      fetch_package_manager = true
+      npm_icon = " <#cc3a3a>\ue5fa</> "
+      yarn_icon= " <#348cba>\ue6a7</>"
+    style = "diamond"
+    template = "\ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }}"
+    trailing_diamond = "\ue0b4 "
+    type = "node"
+  [[blocks.segments]] # Python
+    background = "#306998"
+    foreground = "#FFE873"
+    leading_diamond = "\ue0b6"
+    style = "diamond"
+    template = "\ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }}"
+    trailing_diamond = "\ue0b4 "
+    type = "python"
+  [[blocks.segments]] # Java
+    background = "#0e8ac8"
+    foreground = "#ffffff"
+    leading_diamond = "\ue0b6"
+    style = "diamond"
+    template = "\ue738 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}"
+    trailing_diamond = "\ue0b4 "
+    type = "java"
+  [[blocks.segments]] # Dotnet
+    background = "#0e0e0e"
+    foreground = "#0d6da8"
+    leading_diamond = "\ue0b6"
+    style = "diamond"
+    template = "\ue77f {{ if .Unsupported }}\uf071{{ else }}{{ .Full }}{{ end }}"
+    trailing_diamond = "\ue0b4 "
+    type = "dotnet"
+  [[blocks.segments]] # Go
+    background = "#ffffff"
+    foreground = "#06aad5"
+    leading_diamond = "\ue0b6"
+    style = "diamond"
+    template = "\ue626 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}"
+    trailing_diamond = "\ue0b4 "
+    type = "go"
+  [[blocks.segments]] # Rust
+    background = "#f3f0ec"
+    foreground = "#925837"
+    leading_diamond = "\ue0b6"
+    style = "diamond"
+    template = "\ue7a8 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}"
+    trailing_diamond = "\ue0b4 "
+    type = "rust"
+  [[blocks.segments]] # Julia
+    background = "#945bb3"
+    foreground = "#359a25"
+    leading_diamond = " \ue0b6"
+    style = "diamond"
+    template = "<#ca3c34>\ue624</> {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}"
+    trailing_diamond = "\ue0b4 "
+    type = "julia"
+  # [[blocks.segments]] # Ruby
+  #   background = "#ffffff"
+  #   foreground = "#9c1006"
+  #   leading_diamond = "\ue0b6"
+  #   style = "diamond"
+  #   template = "\ue791 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}"
+  #   trailing_diamond = "\ue0b4 "
+  #   type = "ruby"
+  [[blocks.segments]] # CMake
+    type = "cmake"
+    style = "diamond"
+    leading_diamond = "\ue0b6"
+    trailing_diamond = "\ue0b4 "
+    foreground = "#E8EAEE"
+    background = "#1E9748"
+    template = "  make {{ .Major }}.{{ .Minor }} "
+
+  [[blocks.segments]]
+    background = "#f36943"
+    background_templates = [
+      "{{if eq \"Charging\" .State.String}}#b8e994{{end}}",
+      "{{if eq \"Discharging\" .State.String}}#fff34e{{end}}",
+      "{{if eq \"Full\" .State.String}}#33DD2D{{end}}"
+    ]
+    foreground = "#262626"
+    leading_diamond = "\ue0b6"
+# trailing_diamond = "<transparent,background>\ue0b2</>"
+    style = "diamond"
+    template = "{{ if not .Error }}{{ .Icon }}{{ .Percentage }}{{ end }}{{ .Error }}\uf295 "
+    type = "battery"
+    [blocks.segments.properties]
+      charged_icon = "\uf240 "
+      charging_icon = "\uf1e6 "
+      discharging_icon = "\ue234 "
+  [[blocks.segments]]
+    background = "#8B0000"
+    foreground = "#ffffff"
+    invert_powerline = true
+    leading_diamond = "\ue0b2"
+    style = "diamond"
+    template = " \uf073 {{ .CurrentDate | date .Format }} "
+    trailing_diamond = "\ue0b4"
+    type = "time"
+    [blocks.segments.properties]
+      time_format = "_2;15:04"
+
+
+[[blocks]]
+  alignment = 'left'
+  newline = true
+  type = 'prompt'
+  [[blocks.segments]]
+    foreground = "#21c7c7"
+    style = "plain"
+    template = "\u2570\u2500"
+    type = "text"
+  [[blocks.segments]]
+    foreground = "#e0f8ff"
+    foreground_templates = ["{{ if gt .Code 0 }}#ef5350{{ end }}"]
+    style = "plain"
+    template = "\ue285\ueab6 "
+    type = "status"
+    [blocks.segments.properties]
+      always_enabled = true
+
+[transient_prompt]
+  foreground = "#e0f8ff"
+  foreground_templates = ["{{ if gt .Code 0 }}#ef5350{{ end }}"]
+  style = "plain"
+  template = "> "
+  type = "status"
+  background = "transparent"
+
+[secondary_prompt]
+  foreground = 'magenta'
+  background = 'transparent'
+  template = '+ '

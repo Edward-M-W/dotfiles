@@ -1,0 +1,11 @@
+alias dotfiles="cd ~/.config/"
+
+alias shconf="v ~/.config/zsh"
+alias zshrc="v ~/.zshrc"
+alias ohmyzsh="v ~/.oh-my-zsh"
+alias vconf="v ~/.config/nvim"
+alias wezconf="v ~/.wezterm.lua"
+alias prompt="v ~/.config/ohmyposh/"
+alias tmuxconf="v ~/.tmux.conf"
+alias aeroconf="v ~/.config/aerospace/aerospace.toml"
+alias sketchyconf="v ~/.config/sketchybar/sketchybarrc"

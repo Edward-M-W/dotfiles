@@ -1,0 +1,11 @@
+# why does this game have dotfiles
+StardewValley/
+# i don't know what's in the zed config / if any info is in there
+# although, i also don't use it, so i assume it just has the default settings.
+zed/
+
+spicetify/
+
+.DS_Store
+
+
