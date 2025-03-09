@@ -49,6 +49,9 @@ run = 'layout floating'
 [[on-window-detected]]
 if.app-name-regex-substring = 'iPhone'
 run = 'layout floating'
+[[on-window-detected]]
+if.app-name-regex-substring = 'calendar'
+run = 'layout floating'
 
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:
@@ -62,7 +65,7 @@ inner.horizontal = 10
 inner.vertical =   10
 outer.left =       10
 outer.bottom =     10
-outer.top =        50 
+outer.top =        45 
 outer.right =      10
 
 # 'main' binding mode declaration
@@ -113,11 +116,11 @@ alt-shift-minus = 'resize smart -25'
 alt-shift-equal = 'resize smart +25'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-alt-1 = 'workspace Misc-1'
-alt-2 = 'workspace Misc-2'
-alt-3 = 'workspace Misc-3'
-alt-4 = 'workspace Misc-4'
-alt-5 = 'workspace Misc-5'
+alt-1 = 'workspace .Misc-1'
+alt-2 = 'workspace .Misc-2'
+alt-3 = 'workspace .Misc-3'
+alt-4 = 'workspace .Misc-4'
+alt-5 = 'workspace .Misc-5'
 
 alt-a = 'workspace A͙nki'
 alt-d = 'workspace D͙iscord'
@@ -129,11 +132,11 @@ alt-v = 'workspace V͙ivaldi'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 
-alt-shift-1 = 'move-node-to-workspace Misc-1 --focus-follows-window'
-alt-shift-2 = 'move-node-to-workspace Misc-2 --focus-follows-window'
-alt-shift-3 = 'move-node-to-workspace Misc-3 --focus-follows-window'
-alt-shift-4 = 'move-node-to-workspace Misc-4 --focus-follows-window'
-alt-shift-5 = 'move-node-to-workspace Misc-5 --focus-follows-window'
+alt-shift-1 = 'move-node-to-workspace .Misc-1 --focus-follows-window'
+alt-shift-2 = 'move-node-to-workspace .Misc-2 --focus-follows-window'
+alt-shift-3 = 'move-node-to-workspace .Misc-3 --focus-follows-window'
+alt-shift-4 = 'move-node-to-workspace .Misc-4 --focus-follows-window'
+alt-shift-5 = 'move-node-to-workspace .Misc-5 --focus-follows-window'
 
 alt-shift-a = 'move-node-to-workspace A͙nki --focus-follows-window'
 alt-shift-d = 'move-node-to-workspace D͙iscord --focus-follows-window'

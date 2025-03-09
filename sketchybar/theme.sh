@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+
+# Color Palette
+# BLACK=0xff24283b
+WHITE=0xffc9d1e6
+BAR_COLOUR=0x651e1e2e
+COMMENT=0xff565f89
+
+ITEM_PADDING=8
+ITEM_COLOUR=0x503d3c53
+
+
+TRANSPARENT=0x00000000
+
+# General bar colors
+ICON_COLOR=$WHITE  # Color of all icons
+LABEL_COLOR=$WHITE # Color of all labels
+
+ITEM_DIR="$HOME/.config/sketchybar/items"
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+
+FONT="JetBrainsMono Nerd Font"
+
+PADDINGS=3
+
+POPUP_BORDER_WIDTH=2
+POPUP_CORNER_RADIUS=11
+POPUP_BACKGROUND_COLOR=$BLACK
+POPUP_BORDER_COLOR=$COMMENT
+
+CORNER_RADIUS=15
+BORDER_WIDTH=2
