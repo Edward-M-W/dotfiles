@@ -20,75 +20,80 @@ config.window_padding = {
 
 -- config.window_background_opacity = 0.5
 
--- The filled in variant of the < symbol
-local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
-
--- The filled in variant of the > symbol
-local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
-
--- This function returns the suggested title for a tab.
--- It prefers the title that was set via `tab:set_title()`
--- or `wezterm cli set-tab-title`, but falls back to the
--- title of the active pane in that tab.
-function tab_title(tab_info)
-	local title = tab_info.tab_title
-	-- if the tab title is explicitly set, take that
-	if title and #title > 0 then
-		return title
-	end
-	-- Otherwise, use the title from the active pane
-	-- in that tab
-	return tab_info.active_pane.title
-end
-
-wezterm.on("format-tab-title", function(tab, _, _, _, hover, max_width)
-	local edge_background = "#0b0022"
-	local background = "#1b1032"
-	local foreground = "#808080"
-
-	if tab.is_active then
-		background = "#2b2042"
-		foreground = "#c0c0c0"
-	elseif hover then
-		background = "#3b3052"
-		foreground = "#909090"
-	end
-
-	local edge_foreground = background
-
-	local title = tab_title(tab)
-
-	-- ensure that the titles fit in the available space,
-	-- and that we have room for the edges.
-	title = wezterm.truncate_right(title, max_width - 2)
-
-	return {
-		{ Background = { Color = edge_background } },
-		{ Foreground = { Color = edge_foreground } },
-		{ Text = SOLID_LEFT_ARROW },
-		{ Background = { Color = background } },
-		{ Foreground = { Color = foreground } },
-		{ Text = title },
-		{ Background = { Color = edge_background } },
-		{ Foreground = { Color = edge_foreground } },
-		{ Text = SOLID_RIGHT_ARROW },
-	}
-end)
-
 config.enable_scroll_bar = true
-config.min_scroll_bar_height = "2cell"
-
-local hsb = {
-	brightness = 0.15,
-}
+config.min_scroll_bar_height = "1cell"
 
 config.background = {
 	{
 		source = {
 			File = config_directory .. "/background.png",
 		},
-		hsb = hsb,
+		hsb = {
+			brightness = 0.15,
+		},
 	},
 }
+
+-- this is a really janky way of doing this
+--
+-- when a fullscreen app is open, like nvim or btop or something, disable the
+-- scrollbar
+
+local fullscreen_apps = {
+	"nvim",
+	"btop",
+	"less",
+	"lazygit",
+	"cmatrix",
+	"tmux", -- the scrollbar doesn't work in tmux
+
+	-- man registers as bash
+	-- "man",
+}
+
+wezterm.on("update-status", function(window, pane)
+	local process_name = pane:get_foreground_process_name() or ""
+	-- Extract just the process name (ignore full path)
+	process_name = process_name:match("([^/]+)$") or process_name
+
+	local is_fullscreen_app = false
+
+	for i = 1, #fullscreen_apps do
+		if fullscreen_apps[i] == process_name then
+			is_fullscreen_app = true
+			break
+		end
+	end
+
+	window:set_config_overrides({
+		enable_scroll_bar = not is_fullscreen_app,
+	})
+end)
+
+--config.hide_tab_bar_if_only_one_tab = true
+
+local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
+bar.apply_to_config(config, {
+	position = "top",
+	modules = {
+		workspace = {
+			enabled = false,
+		},
+		leader = {
+			enabled = false,
+		},
+		-- hostname = {
+		-- 	enabled = false,
+		-- },
+		clock = {
+			enabled = false,
+		},
+		cwd = {
+			enabled = false,
+		},
+	},
+})
+
+config.window_decorations = "RESIZE"
 
 return config
